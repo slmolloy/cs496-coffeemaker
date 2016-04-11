@@ -1,13 +1,29 @@
 <template name="coffeeMaker">
     <li>
         <button class="delete">&times;</button>
-        <span class="text">
-            {{#if isPrivate}}
-                (Private)
-            {{else}}
-                (Public)
-            {{/if}} -
-            {{name}} - {{location}} - {{volume}} - {{url}} - {{_id}}
-        </span>
+        <div class="content">
+            <div>
+                <span>
+                    <strong>{{name}}</strong> <small>({{volume}} cups)</small>
+                </span>
+                <span>
+                    {{#if isPrivate}}
+                        (Private)
+                    {{else}}
+                        (Public)
+                    {{/if}}
+                </span>
+            </div>
+            <div>
+                <span>
+                    {{url}}
+                </span>
+            </div>
+            <div>
+                <span>
+                    ID: {{_id}}
+                </span>
+            </div>
+        </div>
     </li>
 </template>
