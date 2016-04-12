@@ -33,7 +33,6 @@ header {
 h1 {
     font-size: 1.5em;
     margin: 0;
-    margin-bottom: 10px;
     display: inline-block;
     margin-right: 1em;
 }
@@ -47,10 +46,30 @@ h5 {
     margin-right: .8em;
 }
 
-form {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.addNew {
+    margin: 0px;
+    padding: 10px 10px;
     position: relative;
+    background: #d2edf4;
+    background-image: linear-gradient(to bottom, #e1e5f0, #d0edf5 100%);
+}
+
+.showNewForm {
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    padding: 0px;
+    display: block;
+    font-weight: bold;
+    background: none;
+    font-size: 1.2em;
+    border: none;
+}
+
+form {
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
+    /*position: relative;*/
 }
 
 form>div {
@@ -58,10 +77,12 @@ form>div {
 }
 
 .newCoffeeMaker {
-    margin: 0px 10px;
+    margin: 0px;
 }
 
-.newCoffeeMaker input[type=text] {
+.newCoffeeMaker input[type=text],
+.newCoffeeMaker input[type=url],
+.newCoffeeMaker input[type=number] {
     box-sizing: border-box;
     background: transparent;
     font-size: 1em;
@@ -83,6 +104,11 @@ form>div {
 .formgroup>label {
     display: inline-block;
     width: 80px;
+}
+
+.buttongroup>button {
+    margin-left: 10px;
+    width: 60px;
 }
 
 ul {
@@ -115,4 +141,13 @@ li .content {
     background: none;
     font-size: 1.2em;
     border: none;
+}
+
+.edit {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    padding: 0px;
+    display: inline-block;
+    width: 40px;
 }
