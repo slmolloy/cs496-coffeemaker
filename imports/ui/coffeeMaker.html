@@ -1,30 +1,78 @@
 <template name="coffeeMaker">
-    <li>
-        <button class="delete">&times;</button>
-        <button class="edit">Edit</button>
-        <div class="content">
-            <div>
-                <span>
-                    <strong>{{name}}</strong> <small>({{volume}} cups)</small>
-                </span>
-                <span>
-                    {{#if isPrivate}}
-                        (Private)
-                    {{else}}
-                        (Public)
-                    {{/if}}
-                </span>
+    {{#if editing}}
+        <li>
+            <form class="editCoffeeMaker">
+                <button class="delete">&times;</button>
+                <div class="savecancel">
+                    <button type="reset" class="cancel">Cancel</button>
+                    <button type="submit" class="save">Save</button>
+                </div>
+                <div class="content">
+                    <div class="formgroup">
+                        <label>Name:</label>
+                        <input type="text" name="name" id="name" placeholder="Name your coffee maker" value="{{name}}" />
+                    </div>
+                    <div class="formgroup">
+                        <label>URL:</label>
+                        <input type="url" name="url" id="url" placeholder="Url of smart coffee maker" value="{{url}}" />
+                    </div>
+                    <div class="formgroup">
+                        <label>Location:</label>
+                        <div>
+                            <input type="radio" name="location" id="home" value="home" checked="{{isHome}}" />
+                            <label for="home">Home</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="location" id="office" value="office" checked="{{isOffice}}" />
+                            <label for="office">Office</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="location" id="other" value="other" checked="{{isOther}}" />
+                            <label for="other">Other</label>
+                        </div>
+                    </div>
+                    <div class="formgroup">
+                        <label>Volume:</label>
+                        <input type="number" name="volume" id="volume" placeholder="Cups" value="{{volume}}" />
+                    </div>
+                    <div class="formgroup">
+                        <label>Private:</label>
+                        <input type="checkbox" name="private" id="private" checked="{{private}}" />
+                    </div>
+                </div>
+            </form>
+        </li>
+    {{else}}
+        <li>
+            <button class="delete">&times;</button>
+            <button class="edit">Edit</button>
+            <div class="content">
+                <div>
+                    <span>
+                        <strong>{{name}}</strong> <small>({{volume}} cups)</small>
+                    </span>
+                    <span>
+                        {{location}}
+                    </span>
+                    <span>
+                        {{#if isPrivate}}
+                            (Private)
+                        {{else}}
+                            (Public)
+                        {{/if}}
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        {{url}}
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        MongoDB ID: {{_id}}
+                    </span>
+                </div>
             </div>
-            <div>
-                <span>
-                    {{url}}
-                </span>
-            </div>
-            <div>
-                <span>
-                    ID: {{_id}}
-                </span>
-            </div>
-        </div>
-    </li>
+        </li>
+    {{/if}}
 </template>

@@ -21,6 +21,22 @@ Meteor.methods({
       createdAt: new Date()
     });
   },
+  'coffeeMakers.update'(id, name, url, location, volume, isPrivate) {
+    check(id, String);
+    check(name, String);
+    check(url, String);
+    check(location, String);
+    check(volume, String);
+    check(isPrivate, Boolean);
+
+    CoffeeMakers.update(id, {$set: {
+      name,
+      url,
+      location,
+      volume,
+      isPrivate
+    }});
+  },
   'coffeeMakers.remove'(coffeeMakerId) {
     check(coffeeMakerId, String);
     

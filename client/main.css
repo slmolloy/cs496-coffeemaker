@@ -151,3 +151,23 @@ li .content {
     display: inline-block;
     width: 40px;
 }
+
+.savecancel {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    padding: 0px;
+    display: inline-block;
+}
+
+.savecancel>button {
+    padding: 0px;
+}
+
+.savecancel>.save {
+    width: 40px;
+}
+
+.savecancel>.cancel {
+    width: 60px;
+}
