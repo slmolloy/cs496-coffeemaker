@@ -83,7 +83,6 @@ form>div {
 .newCoffeeMaker input[type=url],
 .newCoffeeMaker input[type=number] {
     box-sizing: border-box;
-    background: transparent;
     font-size: 1em;
 }
 
