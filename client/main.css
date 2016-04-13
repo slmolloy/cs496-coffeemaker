@@ -53,6 +53,10 @@ h5 {
     background: #e1e5f0;
 }
 
+.showNew {
+    margin: 10px 0px;
+}
+
 .showNewForm {
     position: absolute;
     right: 15px;
@@ -63,6 +67,10 @@ h5 {
     background: none;
     font-size: 1.2em;
     border: none;
+}
+
+.showNewForm>strong {
+    margin-left: 6px;
 }
 
 form {
@@ -135,8 +143,8 @@ li .content {
     right: 15px;
     padding: 0px;
     display: inline-block;
-    font-weight: bold;
     background: none;
+    font-weight: bold;
     font-size: 1.2em;
     border: none;
 }

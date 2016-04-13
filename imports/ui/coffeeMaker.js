@@ -37,7 +37,8 @@ if (Meteor.isClient) {
 
   Template.coffeeMaker.events({
     'click .edit'() {
-      if (Session.get('editItemId') !== null) {
+      if (Session.get('editItemId') !== null
+          && typeof Session.get('editItemId') != 'undefined') {
         alert("Save or cancel existing changes");
         return;
       }
