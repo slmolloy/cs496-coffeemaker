@@ -50,8 +50,7 @@ h5 {
     margin: 0px;
     padding: 10px 10px;
     position: relative;
-    background: #d2edf4;
-    background-image: linear-gradient(to bottom, #e1e5f0, #d0edf5 100%);
+    background: #e1e5f0;
 }
 
 .showNewForm {
