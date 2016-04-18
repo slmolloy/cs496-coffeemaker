@@ -1,0 +1,68 @@
+{
+  "_id": ObjectId("5714161f24420b44d63538d4"),
+  "name": "Cali Coffee",
+  "email": "cali@coffee.com",
+  "coffeetypes": [ { "roast": "light" }, { "name": "Pike Place" } ]
+}
+
+{
+  "_id": ObjectId("571415b624420b44d63538d3"),
+  "name": "Bill Brewer",
+  "email": "bill@brewer.com",
+  "coffeetypes": [ { "roast": "dark" }, { "roast": "medium" },
+    { "name": "Golden Hour Blend", "coffeeTypeId": ObjectId("57141e0524420b44d63538d8") }
+  ],
+  "events": [ { "action": "on", "coffeeMakerId": ObjectId("57141a3324420b44d63538d5"),
+      "time": ISODate("2016-04-17T23:48:44.219Z") }
+  ]
+}
+
+{
+  "_id": ObjectId("57141a3324420b44d63538d5"),
+  "name": "Good morning machine",
+  "details": { "make": "Mr. Coffee", "model": "cm12", "volume": 12 },
+  "token": "F0dw4xCgtLsIbxh7bpY1+0fuSWK2aM/0LTg6GhHnPSE=",
+  "on": true,
+  "lastOn": ISODate("2016-04-17T23:48:44.219Z"),
+  "lastOff": ISODate("2016-04-17T23:20:19.742Z"),
+  "currentVolume": 8,
+  "users": [ { "name": "Bill Brewer", "userId": ObjectId("571415b624420b44d63538d3"),
+      "permission": [ "owner", "user" ] }
+  ],
+  "events": [ { "action": "on", "userId": ObjectId("571415b624420b44d63538d3"),
+      "time": ISODate("2016-04-17T23:48:44.219Z"), "volume": 8 }
+  ]
+}
+
+{
+  "_id": ObjectId("57141b9424420b44d63538d6"),
+  "name": "Breakroom",
+  "details": { "make": "Cuisinart", "model": "ddc-3200", "volume": 14,
+    "autoOff": 2, "wifi": true },
+  "token": "8JB+UJI3kUNOBQdLxGfQhjMVpLJjI9ohonbhk93Xxrs=",
+  "on": false,
+  "lastOn": ISODate("2016-04-17T23:26:12.309Z"),
+  "lastOff": ISODate("2016-04-17T23:26:12.309Z"),
+  "currentVolume": 0,
+  "users": [
+    { "name": "Bill Brewer", "userId": ObjectId("571415b624420b44d63538d3"),
+      "permission": [ "user" ] },
+    { "name": "Cali Coffee", "userId": ObjectId("5714161f24420b44d63538d4"),
+      "permission": [ "owner", "user" ] }
+  ]
+}
+
+{
+  "_id": ObjectId("57141d6424420b44d63538d7"),
+  "name": "Pike Place",
+  "company": { "name": "Starbucks", "city": "Seattle", "state": "WA" },
+  "details": { "roast": "medium", "notes": "smooth and balanced", "region": "Latin America" }
+}
+
+{
+  "_id": ObjectId("57141e0524420b44d63538d8"),
+  "name": "Golden Hour Blend",
+  "company": { "name": "Stumptown Coffee Roasters",
+    "city": "Portland", "state": "OR" },
+  "details": { "roast": "light", "notes": "brilliant and aromatic" }
+}
