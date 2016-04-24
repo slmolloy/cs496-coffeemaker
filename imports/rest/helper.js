@@ -43,5 +43,49 @@ Meteor.methods({
         'msg': message
       }
     }
+  },
+  'recordNotFoundError': function(message) {
+    check(message, String);
+
+    return {
+      statusCode: 400,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        'error': 'record-not-found-error',
+        'msg': message
+      }
+    }
+  },
+  'documentNotFoundError': function(message) {
+    check(message, String);
+
+    return {
+      statusCode: 400,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        'error': 'document-not-found-error',
+        'msg': message
+      }
+    }
+  },
+  'recordDeleted': function(route, id) {
+    check(route, String);
+    check(id, String);
+
+    return {
+      statusCode: 200,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        'action': 'delete',
+        'route': route,
+        'id': id
+      }
+    }
   }
 });

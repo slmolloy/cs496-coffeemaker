@@ -26,4 +26,25 @@ Meteor.methods({
     });
     return result;
   },
+  'users.update'(id, name, email) {
+    check(id, String);
+    var update = {};
+    if (name) {
+      check(name, String);
+      update.name = name;
+    }
+    if (email) {
+      check(email, String);
+      update.email = email;
+    }
+
+    var result = Meteor.users.update(id, {$set: update});
+    return result;
+  },
+  'users.remove'(id) {
+    check(id, String);
+
+    var result = Meteor.users.remove(id);
+    return result;
+  }
 });

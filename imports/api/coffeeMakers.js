@@ -34,27 +34,38 @@ Meteor.methods({
       volume,
       isPrivate,
       on: false,
+      currentVolume: 0,
       createdAt: new Date()
     });
     return result;
   },
   'coffeeMakers.update'(id, name, location, volume, isPrivate) {
     check(id, String);
-    check(name, String);
-    check(location, String);
-    check(volume, Number);
-    check(isPrivate, Boolean);
+    var update = {};
+    if (name) {
+      check(name, String);
+      update.name = name;
+    }
+    if (location) {
+      check(location, String);
+      update.location = location;
+    }
+    if (volume) {
+      check(volume, Number);
+      update.volume = volume;
+    }
+    if (isPrivate) {
+      check(isPrivate, Boolean);
+      update.isPrivate = isPrivate;
+    }
 
-    CoffeeMakers.update(id, {$set: {
-      name,
-      location,
-      volume,
-      isPrivate
-    }});
+    var result = CoffeeMakers.update(id, {$set: update});
+    return result;
   },
-  'coffeeMakers.remove'(coffeeMakerId) {
-    check(coffeeMakerId, String);
+  'coffeeMakers.remove'(id) {
+    check(id, String);
     
-    CoffeeMakers.remove(coffeeMakerId);
+    var result = CoffeeMakers.remove(id);
+    return result;
   },
 });
