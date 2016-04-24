@@ -58,7 +58,7 @@ if (Meteor.isClient) {
       const isPrivate = target.private.checked;
 
       Session.set('editItemId', null);
-      Meteor.call('coffeeMakers.update', this._id, name, url, location, volume, isPrivate);
+      Meteor.call('coffeeMakers.update', this._id, name, url, location, Number(volume), isPrivate);
     },
     'click .delete'() {
       console.log("Clicked delete");

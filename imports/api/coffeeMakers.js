@@ -9,10 +9,10 @@ Meteor.methods({
     check(name, String);
     check(url, String);
     check(location, String);
-    check(volume, String);
+    check(volume, Number);
     check(isPrivate, Boolean);
 
-    CoffeeMakers.insert({
+    var result = CoffeeMakers.insert({
       name,
       url,
       location,
@@ -20,13 +20,14 @@ Meteor.methods({
       isPrivate,
       createdAt: new Date()
     });
+    return result;
   },
   'coffeeMakers.update'(id, name, url, location, volume, isPrivate) {
     check(id, String);
     check(name, String);
     check(url, String);
     check(location, String);
-    check(volume, String);
+    check(volume, Number);
     check(isPrivate, Boolean);
 
     CoffeeMakers.update(id, {$set: {

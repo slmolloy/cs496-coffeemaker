@@ -42,7 +42,7 @@ if(Meteor.isClient) {
       const volume = target.volume.value;
       const isPrivate = target.private.checked;
 
-      Meteor.call('coffeeMakers.insert', name, url, location, volume, isPrivate);
+      Meteor.call('coffeeMakers.insert', name, url, location, Number(volume), isPrivate);
 
       resetForm(event);
     },
