@@ -52,13 +52,12 @@ if (Meteor.isClient) {
 
       const target = event.target;
       const name = target.name.value;
-      const url = target.url.value;
       const location = target.location.value;
       const volume = target.volume.value;
       const isPrivate = target.private.checked;
 
       Session.set('editItemId', null);
-      Meteor.call('coffeeMakers.update', this._id, name, url, location, Number(volume), isPrivate);
+      Meteor.call('coffeeMakers.update', this._id, name, location, Number(volume), isPrivate);
     },
     'click .delete'() {
       console.log("Clicked delete");

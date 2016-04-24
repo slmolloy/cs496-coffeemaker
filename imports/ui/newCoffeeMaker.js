@@ -7,7 +7,6 @@ var resetForm = function(event) {
   const target = event.target;
 
   target.name.value = '';
-  target.url.value = '';
   for (let radio of target.location) {
     radio.checked = false;
   }
@@ -37,12 +36,11 @@ if(Meteor.isClient) {
 
       const target = event.target;
       const name = target.name.value;
-      const url = target.url.value;
       const location = target.location.value;
       const volume = target.volume.value;
       const isPrivate = target.private.checked;
 
-      Meteor.call('coffeeMakers.insert', name, url, location, Number(volume), isPrivate);
+      Meteor.call('coffeeMakers.insert', name, location, Number(volume), isPrivate);
 
       resetForm(event);
     },

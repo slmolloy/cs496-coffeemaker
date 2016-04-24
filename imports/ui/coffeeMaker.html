@@ -13,8 +13,8 @@
                         <input type="text" name="name" id="name" placeholder="Name your coffee maker" value="{{name}}" required />
                     </div>
                     <div class="formgroup">
-                        <label>URL:</label>
-                        <input type="url" name="url" id="url" placeholder="Url including http[s]://" value="{{url}}" required />
+                        <label>Token:</label>
+                        <span>{{token}}</span>
                     </div>
                     <div class="formgroup">
                         <label>Location:</label>
@@ -61,10 +61,17 @@
                             (Public)
                         {{/if}}
                     </span>
+                    <span>
+                        {{#if on}}
+                            (ON)
+                        {{else}}
+                            (OFF)
+                        {{/if}}
+                    </span>
                 </div>
                 <div>
                     <span>
-                        {{url}}
+                        Token: {{token}}
                     </span>
                 </div>
                 <div>
