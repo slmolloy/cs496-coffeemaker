@@ -87,5 +87,23 @@ Meteor.methods({
         'id': id
       }
     }
+  },
+  'arrayItemDeleted': function(route, id, item, action) {
+    check(route, String);
+    check(id, String);
+    check(item, String);
+
+    return {
+      statusCode: 200,
+      header: {
+        'Content-type': 'application/json'
+      },
+      body: {
+        'action': 'array-delete',
+        'route': route,
+        'itemId': item,
+        'action': action
+      }
+    }
   }
 });

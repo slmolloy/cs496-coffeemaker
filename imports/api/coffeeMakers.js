@@ -68,4 +68,38 @@ Meteor.methods({
     var result = CoffeeMakers.remove(id);
     return result;
   },
+  'coffeeMakers.addUser'(id, userId, permission) {
+    check(id, String);
+    check(userId, String);
+
+    var user = Meteor.call('users.getOne', userId);
+
+    if (user) {
+      var newUser = {};
+      newUser.userName = user.name;
+      newUser.userId = userId;
+      newUser.permission = permission;
+
+      return CoffeeMakers.update(id, {$push: {users: newUser}});
+    } else {
+      return 0;
+    }
+  },
+  'coffeeMaker.removeUser'(id, userId) {
+    check(id, String);
+    check(userId, String);
+
+    var result = 0;
+    try {
+      result = CoffeeMakers.update(id, {$pull: {users: {userId: userId}}});
+    } catch (exception) {
+      console.log(exception);
+    }
+    if (result) {
+      return result;
+    } else {
+      return 0;
+    }
+
+  }
 });

@@ -80,6 +80,8 @@ if (Meteor.isServer) {
     delete: function() {
       var id = this.urlParams.id;
 
+      // TODO: add code to remove user from all coffeeMakers
+
       var result = 0;
       try {
         result = Meteor.call('users.remove', id);
