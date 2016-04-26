@@ -60,7 +60,6 @@ if (Meteor.isClient) {
       Meteor.call('coffeeMakers.update', this._id, name, location, Number(volume), isPrivate);
     },
     'click .delete'() {
-      console.log("Clicked delete");
       Meteor.call('coffeeMakers.remove', this._id);
     },
   });

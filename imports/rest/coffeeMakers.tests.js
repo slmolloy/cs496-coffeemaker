@@ -99,13 +99,11 @@ if (Meteor.isServer) {
         var userId = userResp.data._id;
 
         var postResp = HTTP.post(URL + '/' + coffeeMakerId + '/users',
-          {data: {id: coffeeMakerId, userId: userId, permissions}});
+          {data: {userId: userId, permissions}});
         assert.equal(postResp.data, 1, '1 record updated');
 
         makerResp = HTTP.get(URL + '/' + coffeeMakerId);
         var json = makerResp.data;
-        console.log('RESPONSE: ' + json);
-        console.log(json.users[0]);
         assert.equal(json.users.length, 1, 'users array contains 1 item');
         assert.equal(json.users[0].id, userId, 'expecting same userId');
         assert.equal(json.users[0].name, userName, 'expecting same user name');
@@ -121,7 +119,7 @@ if (Meteor.isServer) {
         var userId = userResp.data._id;
 
         var postResp = HTTP.post(URL + '/' + coffeeMakerId + '/users',
-          {data: {id: coffeeMakerId, userId: userId, permissions}});
+          {data: {userId: userId, permissions}});
         assert.equal(postResp.data, 1, '1 record updated');
 
         makerResp = HTTP.get(URL + '/' + coffeeMakerId);
@@ -138,6 +136,10 @@ if (Meteor.isServer) {
         assert.equal(json.action, 'removeUser', 'expecting removeUser action');
         assert.equal(json.route, 'makers/:id/users/:userId', 'expecting maker/id/users/id route');
         assert.equal(json.itemId, userId, 'expecting item id remove to match userId');
+
+        makerResp = HTTP.get(URL + '/' + coffeeMakerId);
+        var json = makerResp.data;
+        assert.equal(json.users.length, 0, 'users array should now contain 0 items');
       });
 
       it('can cleanup user permissions on user delete', () => {

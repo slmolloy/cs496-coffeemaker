@@ -94,7 +94,7 @@ Meteor.methods({
 
     var result = 0;
     try {
-      result = CoffeeMakers.update(id, {$pull: {users: {userId: userId}}});
+      result = CoffeeMakers.update(id, {$pull: {users: {id: userId}}});
     } catch (exception) {
       console.log(exception);
     }
