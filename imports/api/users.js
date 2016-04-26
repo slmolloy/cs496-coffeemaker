@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
+import './coffeeMakers';
+
 Meteor.methods({
   'users.get'(skip, limit) {
     check(skip, Number);
@@ -45,6 +47,7 @@ Meteor.methods({
     check(id, String);
 
     var result = Meteor.users.remove(id);
+    Meteor.call('coffeeMakers.removeUserFromAll', id);
     return result;
   }
 });

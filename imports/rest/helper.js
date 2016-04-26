@@ -81,6 +81,15 @@ Meteor.methods({
       body: newRecord
     }
   },
+  'recordFound': function(record) {
+    return {
+      statusCode: 200,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: record
+    }
+  },
   'recordDeleted': function(route, id) {
     check(route, String);
     check(id, String);

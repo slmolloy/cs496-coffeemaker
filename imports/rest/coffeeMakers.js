@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 import './helper';
-import '../api/users.js';
+import '../api/users';
 
 const COFFEE_MAKERS = 'makers';
 const COFFEE_MAKER = 'makers/:id';
@@ -55,7 +55,7 @@ if (Meteor.isServer) {
       var id = this.urlParams.id;
       var result = Meteor.call('coffeeMakers.getOne', id);
       if (result) {
-        return result;
+        return Meteor.call('recordFound', result);
       } else {
         return Meteor.call('recordNotFoundError', id + ' not found');
       }
@@ -120,9 +120,9 @@ if (Meteor.isServer) {
     post: function() {
       var id = this.urlParams.id;
       var userId = this.bodyParams.userId;
-      var permission = this.bodyParams.permission;
+      var permissions = this.bodyParams.permissions;
 
-      var result = Meteor.call('coffeeMakers.addUser', id, userId, permission);
+      var result = Meteor.call('coffeeMakers.addUser', id, userId, permissions);
       if (result) {
         return result;
       } else {
@@ -139,21 +139,19 @@ if (Meteor.isServer) {
 
   Api.addRoute(COFFEE_MAKER_USER, { authRequired: false }, {
     get: function() {
-      // TODO: implement get on specific user to retrieve permissions list
       return Meteor.call('badOperation', 'cannot get on ' + COFFEE_MAKER_USER);
     },
     post: function() {
       return Meteor.call('badOperation', 'cannot post on ' + COFFEE_MAKER_USER);
     },
     put: function() {
-      // TODO: implement put on user to allow changing permissions
       return Meteor.call('badOperation', 'cannot put on ' + COFFEE_MAKER_USER);
     },
     delete: function() {
       var id = this.urlParams.id;
       var userId = this.urlParams.userId;
 
-      var result = Meteor.call('coffeeMaker.removeUser', id, userId);
+      var result = Meteor.call('coffeeMakers.removeUser', id, userId);
       if (result) {
         return Meteor.call('arrayItemDeleted', COFFEE_MAKER_USER, id, userId, 'removeUser');
       } else {

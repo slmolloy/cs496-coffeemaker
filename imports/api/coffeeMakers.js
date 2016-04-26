@@ -68,7 +68,10 @@ Meteor.methods({
     var result = CoffeeMakers.remove(id);
     return result;
   },
-  'coffeeMakers.addUser'(id, userId, permission) {
+  'coffeeMakers.removeAll'() {
+    return CoffeeMakers.remove({});
+  },
+  'coffeeMakers.addUser'(id, userId, permissions) {
     check(id, String);
     check(userId, String);
 
@@ -76,16 +79,16 @@ Meteor.methods({
 
     if (user) {
       var newUser = {};
-      newUser.userName = user.name;
-      newUser.userId = userId;
-      newUser.permission = permission;
+      newUser.name = user.name;
+      newUser.id = userId;
+      newUser.permissions = permissions;
 
       return CoffeeMakers.update(id, {$push: {users: newUser}});
     } else {
       return 0;
     }
   },
-  'coffeeMaker.removeUser'(id, userId) {
+  'coffeeMakers.removeUser'(id, userId) {
     check(id, String);
     check(userId, String);
 
@@ -100,6 +103,20 @@ Meteor.methods({
     } else {
       return 0;
     }
+  },
+  'coffeeMakers.removeUserFromAll'(userId) {
+    check(userId, String);
 
-  }
+    var result = 0;
+    try {
+      result = CoffeeMakers.update({}, {$pull: {users: {id: userId}}});
+    } catch (exception) {
+      console.log(exception);
+    }
+    if (result) {
+      return result;
+    } else {
+      return 0;
+    }
+  },
 });
