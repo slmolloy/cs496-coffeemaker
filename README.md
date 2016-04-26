@@ -1,7 +1,12 @@
 # cs496-coffeemaker
 Coffee maker web app
 
-# To run locally, clone repository and run the following:
+Website available at: https://tranquil-lowlands-46896.herokuapp.com/
+
+API available at:  https://tranquil-lowlands-46896.herokuapp.com/api/v1
+
+### To run locally
+Clone repository and run the following:
 ```
 curl https://install.meteor.com/ | sh
 meteor npm install
@@ -9,7 +14,7 @@ meteor
 ```
 Site will run at http://localhost:3000.
 
-# To run tests
+### To run tests
 ```
 npm test
 ```
