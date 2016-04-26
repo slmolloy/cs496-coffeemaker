@@ -33,7 +33,8 @@ if (Meteor.isServer) {
         return Meteor.call('unknownError', 'post failed on ' + USERS);
       }
       if (result) {
-        return Meteor.call('users.getOne', result);
+        var newRecord = Meteor.call('users.getOne', result);
+        return Meteor.call('recordCreated', newRecord);
       } else {
         return Meteor.call('unknownError', 'post failed on' + USERS);
       }
