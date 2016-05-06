@@ -33,7 +33,7 @@ Meteor.methods({
       location,
       volume,
       isPrivate,
-      on: false,
+      isOn: false,
       currentVolume: 0,
       createdAt: new Date()
     });
