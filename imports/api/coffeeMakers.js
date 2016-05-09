@@ -19,7 +19,7 @@ Meteor.methods({
     var result = CoffeeMakers.findOne({'_id': id});
     return result;
   },
-  'coffeeMakers.insert'(name, location, volume, isPrivate) {
+  'coffeeMakers.insert'(name, location, volume, isPrivate, latitude, longitude) {
     check(name, String);
     check(location, String);
     check(volume, Number);
@@ -33,6 +33,8 @@ Meteor.methods({
       location,
       volume,
       isPrivate,
+      latitude,
+      longitude,
       isOn: false,
       currentVolume: 0,
       createdAt: new Date()

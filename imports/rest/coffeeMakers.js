@@ -28,10 +28,12 @@ if (Meteor.isServer) {
       var location = this.bodyParams.location;
       var volume = this.bodyParams.volume;
       var isPrivate = this.bodyParams.isPrivate;
+      var latitude = this.bodyParams.latitude;
+      var longitude = this.bodyParams.longitude;
 
       var result = 0;
       try {
-        result = Meteor.call('coffeeMakers.insert', name, location, volume, isPrivate);
+        result = Meteor.call('coffeeMakers.insert', name, location, volume, isPrivate, latitude, longitude);
       } catch (exception) {
         console.log(exception);
         return Meteor.call('unknownError', 'post failed on ' + COFFEE_MAKERS);
