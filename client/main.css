@@ -46,6 +46,18 @@ h5 {
     margin-right: .8em;
 }
 
+.login {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    padding: 0px;
+    display: block;
+    font-weight: bold;
+    background: none;
+    font-size: 0.8em;
+    border: none;
+}
+
 .addNew {
     margin: 0px;
     padding: 10px 10px;

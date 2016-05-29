@@ -37,7 +37,9 @@ Meteor.methods({
       longitude,
       isOn: false,
       currentVolume: 0,
-      createdAt: new Date()
+      createdAt: new Date(),
+      owner: Meteor.userId(),
+      username: Meteor.user().username
     });
     return result;
   },

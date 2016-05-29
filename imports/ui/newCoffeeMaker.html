@@ -1,43 +1,45 @@
 <template name="newCoffeeMaker">
-    {{#unless showForm}}
-        <div class="showNew">
-            <button class="showNewForm">Add<strong>&plus;</strong></button>
-        </div>
-    {{/unless}}
-    {{#if showForm}}
-        <form class="newCoffeeMaker">
-            <h5>Add a new coffee maker</h5>
-            <div class="formgroup">
-                <label>Name:</label>
-                <input type="text" name="name" id="name" placeholder="Name your coffee maker" required />
+    {{#if currentUser}}
+        {{#unless showForm}}
+            <div class="showNew">
+                <button class="showNewForm">Add<strong>&plus;</strong></button>
             </div>
-            <div class="formgroup">
-                <label>Location:</label>
-                <div>
-                    <input type="radio" name="location" id="home" value="home" />
-                    <label for="home">Home</label>
+        {{/unless}}
+        {{#if showForm}}
+            <form class="newCoffeeMaker">
+                <h5>Add a new coffee maker</h5>
+                <div class="formgroup">
+                    <label>Name:</label>
+                    <input type="text" name="name" id="name" placeholder="Name your coffee maker" required />
                 </div>
-                <div>
-                    <input type="radio" name="location" id="office" value="office" />
-                    <label for="office">Office</label>
+                <div class="formgroup">
+                    <label>Location:</label>
+                    <div>
+                        <input type="radio" name="location" id="home" value="home" />
+                        <label for="home">Home</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="location" id="office" value="office" />
+                        <label for="office">Office</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="location" id="other" value="other" />
+                        <label for="other">Other</label>
+                    </div>
                 </div>
-                <div>
-                    <input type="radio" name="location" id="other" value="other" />
-                    <label for="other">Other</label>
+                <div class="formgroup">
+                    <label>Volume:</label>
+                    <input type="number" name="volume" id="volume" placeholder="Cups" />
                 </div>
-            </div>
-            <div class="formgroup">
-                <label>Volume:</label>
-                <input type="number" name="volume" id="volume" placeholder="Cups" />
-            </div>
-            <div class="formgroup">
-                <label>Private:</label>
-                <input type="checkbox" name="private" id="private" />
-            </div>
-            <div class="buttongroup">
-                <button type="reset" class="resetCoffeeMaker">Cancel</button>
-                <button type="submit" class="saveCoffeeMaker">Add</button>
-            </div>
-        </form>
+                <div class="formgroup">
+                    <label>Private:</label>
+                    <input type="checkbox" name="private" id="private" />
+                </div>
+                <div class="buttongroup">
+                    <button type="reset" class="resetCoffeeMaker">Cancel</button>
+                    <button type="submit" class="saveCoffeeMaker">Add</button>
+                </div>
+            </form>
+        {{/if}}
     {{/if}}
 </template>
