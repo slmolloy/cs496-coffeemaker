@@ -6,9 +6,13 @@ import './coffeeMakerList.html';
 import './coffeeMaker';
 
 if (Meteor.isClient) {
+  Template.body.onCreated(function() {
+    Session.set('mine', false);
+  });
+
   Template.coffeeMakerList.helpers({
     coffeeMakers() {
-      Meteor.call('coffeeMakers.get', 0, 10, function(error, result) {
+      Meteor.call('coffeeMakers.get', 0, 10, Session.get('mine'), function(error, result) {
         Session.set("data", result);
       });
       if (Session.get("data")) {
@@ -17,5 +21,19 @@ if (Meteor.isClient) {
         return [];
       }
     },
+    mineChecked() {
+      return Session.get('mine');
+    }
   });
+
+  Template.coffeeMakerList.events({
+    'click .showMine'(event) {
+      Session.set('editItemId', null);
+      if (event.target.checked) {
+        Session.set('mine', true);
+      } else {
+        Session.set('mine', false);
+      }
+    },
+  })
 }

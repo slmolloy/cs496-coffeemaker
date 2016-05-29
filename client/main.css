@@ -85,6 +85,24 @@ h5 {
     margin-left: 6px;
 }
 
+.showMine {
+    padding-left: 15px;
+    padding-top: 10px;
+}
+
+.showMine>label {
+    display: block;
+}
+
+.showMine input {
+    padding: 0px;
+    margin: 0px 3px 0px 3px;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}
+
 form {
     /*margin-top: 10px;*/
     /*margin-bottom: 10px;*/

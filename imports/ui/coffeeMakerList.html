@@ -1,4 +1,11 @@
 <template name="coffeeMakerList">
+    {{#if currentUser}}
+        <div class="showMine">
+            <label>Only show mine:
+                <input type="checkbox" name="mine" id="mine" checked="{{mineChecked}}" />
+            </label>
+        </div>
+    {{/if}}
     <ul>
         {{#each coffeeMakers }}
             {{> coffeeMaker }}

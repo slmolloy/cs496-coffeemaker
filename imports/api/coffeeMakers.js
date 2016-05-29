@@ -6,11 +6,22 @@ import { Random } from 'meteor/random';
 export const CoffeeMakers = new Mongo.Collection('coffeeMakers');
 
 Meteor.methods({
-  'coffeeMakers.get'(skip, limit) {
+  'coffeeMakers.get'(skip, limit, mine) {
     check(skip, Number);
     check(limit, Number);
+    check(mine, Boolean);
 
-    var result = CoffeeMakers.find({}, {skip: skip, limit: limit}).fetch();
+    var find = {};
+    if (mine) {
+      find = {owner: Meteor.userId()};
+    } else {
+      find = {$or: [
+        {owner: Meteor.userId()},
+        {isPrivate: false}
+      ]}
+    }
+
+    var result = CoffeeMakers.find(find, {skip: skip, limit: limit}).fetch();
     return result;
   },
   'coffeeMakers.getOne'(id) {
