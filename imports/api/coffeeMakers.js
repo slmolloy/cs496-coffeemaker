@@ -5,6 +5,42 @@ import { Random } from 'meteor/random';
 
 export const CoffeeMakers = new Mongo.Collection('coffeeMakers');
 
+views = {};
+
+views.findAll = function(terms) {
+  return {
+    find: {},
+    sort: {sort: {createdAt: -1}},
+    limit: terms.limit
+  }
+};
+
+views.findMine = function(terms) {
+  return {
+    find: {username: Meteor.user().username},
+    sort: {sort: {createdAt: -1}},
+    limit: terms.limit
+  }
+};
+
+queryConstructor = function(terms) {
+  var viewFunction = views[terms.viewName];
+  var parameters = viewFunction(terms);
+
+  if (parameters.limit > 100) {
+    parameters.limit = 100;
+  }
+
+  return parameters;
+}
+
+if (Meteor.isServer) {
+  Meteor.publish('coffeeMakers', function(terms) {
+    var parameters = queryConstructor(terms);
+    return Meteor.call(parameters.method, )
+  });
+}
+
 Meteor.methods({
   'coffeeMakers.get'(skip, limit) {
     check(skip, Number);
