@@ -14,14 +14,33 @@ if (Meteor.isServer) {
     defaultHeaders: {
       'Content-Type': 'application/json'
     },
-    useDefaultAuth: false,
+    useDefaultAuth: true,
     prettyJson: true,
     version: 'v1'
   });
 
-  Api.addRoute(COFFEE_MAKERS, { authRequired: false }, {
+  function buildTerms(context, terms) {
+    if (context && context.userId && terms && !terms.userId) {
+      terms.userId = context.userId;
+    }
+
+    if (context && terms && !terms.username) {
+      terms.username = Meteor.users.findOne({_id: context.userId}).username;
+    }
+  }
+
+  Api.addRoute(COFFEE_MAKERS, { authRequired: true }, {
     get: function() {
-      return Meteor.call('coffeeMakers.get', 0, 10);
+      var mine = this.queryParams.mine;
+      if (mine === 'true') {
+        mine = true;
+      } else {
+        mine = false;
+      }
+
+      var terms = {mine: mine};
+      buildTerms(this, terms);
+      return Meteor.call('coffeeMakers.get', terms);
     },
     post: function() {
       var name = this.bodyParams.name;
@@ -31,9 +50,20 @@ if (Meteor.isServer) {
       var latitude = this.bodyParams.latitude;
       var longitude = this.bodyParams.longitude;
 
+      var terms = {
+        name,
+        location,
+        volume,
+        isPrivate,
+        latitude,
+        longitude
+      };
+
+      buildTerms(this, terms);
+
       var result = 0;
       try {
-        result = Meteor.call('coffeeMakers.insert', name, location, volume, isPrivate, latitude, longitude);
+        result = Meteor.call('coffeeMakers.insert', terms);
       } catch (exception) {
         console.log(exception);
         return Meteor.call('unknownError', 'post failed on ' + COFFEE_MAKERS);

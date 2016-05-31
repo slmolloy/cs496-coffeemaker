@@ -5,18 +5,58 @@ import { Random } from 'meteor/random';
 
 export const CoffeeMakers = new Mongo.Collection('coffeeMakers');
 
+function parseTerms(context, terms) {
+  if (Meteor.isServer) {
+    if (context && !context.userId && terms && terms.userId) {
+      check(terms.userId, String);
+      context.userId = terms.userId;
+    }
+  }
+
+  if (Meteor.user().username) {
+    context.username = Meteor.user().username;
+  } else if (terms.username) {
+    context.username = terms.username;
+  }
+}
+
 Meteor.methods({
-  'coffeeMakers.get'(skip, limit, mine) {
-    check(skip, Number);
-    check(limit, Number);
-    check(mine, Boolean);
+  'coffeeMakers.get'(terms) {
+    var skip, limit, mine;
+
+    if (terms) {
+      if (terms.skip || terms.skip === 0) {
+        check(terms.skip, Number);
+        skip = terms.skip;
+      } else {
+        skip = 0;
+      }
+      if (terms.limit || terms.limit === 0) {
+        check(terms.limit, Number);
+        limit = terms.limit;
+      } else {
+        limit = 10;
+      }
+      if (terms.mine) {
+        check(terms.mine, Boolean);
+        mine = terms.mine;
+      } else {
+        mine = false;
+      }
+    } else {
+      skip = 0;
+      limit = 10;
+      mine = false;
+    }
+
+    parseTerms(this, terms);
 
     var find = {};
     if (mine) {
-      find = {owner: Meteor.userId()};
+      find = {owner: this.userId};
     } else {
       find = {$or: [
-        {owner: Meteor.userId()},
+        {owner: this.userId},
         {isPrivate: false}
       ]}
     }
@@ -30,27 +70,29 @@ Meteor.methods({
     var result = CoffeeMakers.findOne({'_id': id});
     return result;
   },
-  'coffeeMakers.insert'(name, location, volume, isPrivate, latitude, longitude) {
-    check(name, String);
-    check(location, String);
-    check(volume, Number);
-    check(isPrivate, Boolean);
+  'coffeeMakers.insert'(terms) {
+    check(terms.name, String);
+    check(terms.location, String);
+    check(terms.volume, Number);
+    check(terms.isPrivate, Boolean);
 
     var token = Random.secret();
 
+    parseTerms(this, terms);
+
     var result = CoffeeMakers.insert({
-      name,
+      name: terms.name,
       token,
-      location,
-      volume,
-      isPrivate,
-      latitude,
-      longitude,
+      location: terms.location,
+      volume: terms.volume,
+      isPrivate: terms.isPrivate,
+      latitude: terms.latitude,
+      longitude: terms.longitude,
       isOn: false,
       currentVolume: 0,
       createdAt: new Date(),
-      owner: Meteor.userId(),
-      username: Meteor.user().username
+      owner: this.userId,
+      username: this.username
     });
     return result;
   },

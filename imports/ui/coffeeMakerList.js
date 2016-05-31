@@ -12,7 +12,7 @@ if (Meteor.isClient) {
 
   Template.coffeeMakerList.helpers({
     coffeeMakers() {
-      Meteor.call('coffeeMakers.get', 0, 10, Session.get('mine'), function(error, result) {
+      Meteor.call('coffeeMakers.get', {mine: Session.get('mine')}, function(error, result) {
         Session.set("data", result);
       });
       if (Session.get("data")) {
