@@ -5,10 +5,10 @@
                 <input type="checkbox" name="mine" id="mine" checked="{{mineChecked}}" />
             </label>
         </div>
+        <ul>
+            {{#each coffeeMakers }}
+                {{> coffeeMaker }}
+            {{/each}}
+        </ul>
     {{/if}}
-    <ul>
-        {{#each coffeeMakers }}
-            {{> coffeeMaker }}
-        {{/each}}
-    </ul>
 </template>

@@ -13,7 +13,7 @@ function parseTerms(context, terms) {
     }
   }
 
-  if (Meteor.user().username) {
+  if (typeof(Meteor.user) === typeof(Function) && Meteor.user().username) {
     context.username = Meteor.user().username;
   } else if (terms.username) {
     context.username = terms.username;
