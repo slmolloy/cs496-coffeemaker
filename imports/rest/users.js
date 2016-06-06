@@ -12,31 +12,34 @@ if (Meteor.isServer) {
     defaultHeaders: {
       'Content-Type': 'application/json'
     },
-    useDefaultAuth: false,
+    useDefaultAuth: true,
     prettyJson: true,
     version: 'v1'
   });
 
-  Api.addRoute(USERS, { authRequired: false }, {
-    get: function() {
+  Api.addRoute(USERS, { authRequired: true }, {
+    get: function () {
       return Meteor.call('users.get', 0, 10);
     },
-    post: function() {
-      var name = this.bodyParams.name;
-      var email = this.bodyParams.email;
+    post: {
+      authRequired: false,
+      action: function() {
+        var username = this.bodyParams.username;
+        var password = this.bodyParams.password;
 
-      var result = 0;
-      try {
-        result = Meteor.call('users.insert', name, email);
-      } catch (exception) {
-        console.log(exception);
-        return Meteor.call('unknownError', 'post failed on ' + USERS);
-      }
-      if (result) {
-        var newRecord = Meteor.call('users.getOne', result);
-        return Meteor.call('recordCreated', newRecord);
-      } else {
-        return Meteor.call('unknownError', 'post failed on' + USERS);
+        var result = 0;
+        try {
+          result = Meteor.call('users.insert', username, password);
+        } catch (exception) {
+          console.log(exception);
+          return Meteor.call('unknownError', 'post failed on ' + USERS);
+        }
+        if (result) {
+          var newRecord = Meteor.call('users.getOne', result);
+          return Meteor.call('recordCreated', newRecord);
+        } else {
+          return Meteor.call('unknownError', 'post failed on' + USERS);
+        }
       }
     },
     put: function() {

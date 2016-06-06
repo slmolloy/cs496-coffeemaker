@@ -9,23 +9,27 @@ Meteor.methods({
     check(skip, Number);
     check(limit, Number);
 
-    var result = Meteor.users.find({}, {skip: skip, limit: limit}).fetch();
+    var result = Meteor.users.find({}, {skip: skip, limit: limit, fields: {username: 1}}).fetch();
     return result;
   },
   'users.getOne'(id) {
     check(id, String);
 
-    var result = Meteor.users.findOne({'_id': id});
+    var result = Meteor.users.findOne({'_id': id}, {fields: {username: 1}});
     return result;
   },
-  'users.insert'(name, email) {
-    check(name, String);
-    check(email, String);
+  'users.insert'(username, password) {
+    check(username, String);
+    check(password, String);
 
-    var result = Meteor.users.insert({
-      name,
-      email
+    var result = Accounts.createUser({
+      username,
+      password
     });
+    // var result = Meteor.users.insert({
+    //   name,
+    //   username
+    // });
     return result;
   },
   'users.update'(id, name, email) {

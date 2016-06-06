@@ -15,6 +15,7 @@ if (Meteor.isServer) {
       'Content-Type': 'application/json'
     },
     useDefaultAuth: true,
+    enableCors: true,
     prettyJson: true,
     version: 'v1'
   });
@@ -30,17 +31,20 @@ if (Meteor.isServer) {
   }
 
   Api.addRoute(COFFEE_MAKERS, { authRequired: true }, {
-    get: function() {
-      var mine = this.queryParams.mine;
-      if (mine === 'true') {
-        mine = true;
-      } else {
-        mine = false;
-      }
+    get: {
+      authRequired: true,
+      action: function () {
+        var mine = this.queryParams.mine;
+        if (mine === 'true') {
+          mine = true;
+        } else {
+          mine = false;
+        }
 
-      var terms = {mine: mine};
-      buildTerms(this, terms);
-      return Meteor.call('coffeeMakers.get', terms);
+        var terms = {mine: mine};
+        buildTerms(this, terms);
+        return Meteor.call('coffeeMakers.get', terms);
+      }
     },
     post: function() {
       var name = this.bodyParams.name;

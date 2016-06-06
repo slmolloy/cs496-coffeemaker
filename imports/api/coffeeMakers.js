@@ -35,7 +35,7 @@ Meteor.methods({
         check(terms.limit, Number);
         limit = terms.limit;
       } else {
-        limit = 10;
+        limit = 100;
       }
       if (terms.mine) {
         check(terms.mine, Boolean);
@@ -45,7 +45,7 @@ Meteor.methods({
       }
     } else {
       skip = 0;
-      limit = 10;
+      limit = 100;
       mine = false;
     }
 
